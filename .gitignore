@@ -1,0 +1,15 @@
+.DS_Store*
+./DS_Store*
+.idea/
+.vscode/
+*.iml
+*.log
+*.tmp
+*.swp
+*.out
+*.bak
+*.orig
+*.rej
+*.class
+*.jar
+*.war

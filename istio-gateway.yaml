@@ -1,0 +1,29 @@
+# istio-gateway.yaml
+apiVersion: networking.istio.io/v1beta1
+kind: Gateway
+metadata:
+  name: wso2-apim-gateway
+  namespace: wso2-system
+spec:
+  selector:
+    istio: ingressgateway
+  servers:
+    - port:
+        number: 80
+        name: http
+        protocol: HTTP
+      hosts:
+        - "api.wso2.local"
+        - "publisher.wso2.local"
+        - "devportal.wso2.local"
+    - port:
+        number: 443
+        name: https
+        protocol: HTTPS
+      tls:
+        mode: SIMPLE
+        credentialName: wso2-apim-tls-secret
+      hosts:
+        - "api.wso2.local"
+        - "publisher.wso2.local"
+        - "devportal.wso2.local"
