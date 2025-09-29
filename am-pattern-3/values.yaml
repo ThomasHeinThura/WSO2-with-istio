@@ -30,9 +30,9 @@ wso2:
   deployment:
     dependencies:
       # The configuration should be set to be 'true' if a MySQL database should be spawned as a pod within the cluster
-      cluster_mysql: true
+      cluster_mysql: false
       # Enable NFS dynamic provisioner for Kubernetes
-      nfsServerProvisioner: true
+      nfsServerProvisioner: false
 
     # Persisted and shared runtime artifacts for API Manager
     # See official documentation (from https://apim.docs.wso2.com/en/latest/install-and-setup/setup/reference/common-runtime-and-configuration-artifacts/#persistent-runtime-artifacts)

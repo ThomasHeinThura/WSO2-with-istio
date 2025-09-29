@@ -30,6 +30,12 @@ kubectl apply -f https://raw.githubusercontent.com/mysql/mysql-operator/9.4.0-2.
 kubectl apply -f https://raw.githubusercontent.com/mysql/mysql-operator/9.4.0-2.2.5/deploy/deploy-operator.yaml
 kubectl wait --for=condition=available --timeout=300s deployment/mysql-operator -n mysql-operator
 ```
+```bash
+kubectl create secret generic mypwds \
+        --from-literal=rootUser=root \
+        --from-literal=rootHost=% \
+        --from-literal=rootPassword="1qaz!QAZ"
+```
 
 ### 4. Deploy MySQL Cluster
 ```bash

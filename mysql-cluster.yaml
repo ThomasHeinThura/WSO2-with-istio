@@ -1,24 +1,11 @@
-# mysql-cluster.yaml
 apiVersion: mysql.oracle.com/v2
 kind: InnoDBCluster
 metadata:
   name: wso2-mysql-cluster
-  namespace: wso2-system
+  namespace: mysql
 spec:
-  secretName: mysql-secret
+  secretName: mypwds
   tlsUseSelfSigned: true
   instances: 3
   router:
-    instances: 2
-  datadirVolumeClaimTemplate:
-    accessModes:
-      - ReadWriteOnce
-    resources:
-      requests:
-        storage: 20Gi
-  mycnf: |
-    [mysqld]
-    max_connections = 200
-    innodb_buffer_pool_size = 1G
-    innodb_log_file_size = 256M
-    binlog_expire_logs_seconds = 604800
+    instances: 1
