@@ -112,7 +112,7 @@ wso2:
           # Name of the IngressClass to use
           className: ""
           # Hostname for Gateway (WebSub) service
-          hostname: "websub.am.wso2.com"
+          hostname: "websub.bimats.com"
           # Annotations for the API Manager Gateway (WebSub) service Ingress
           annotations:
             kubernetes.io/ingress.class: "nginx"
@@ -125,7 +125,7 @@ wso2:
           # Name of the IngressClass to use
           className: ""
           # Hostname for Gateway (WebSocket) service
-          hostname: "websocket.am.wso2.com"
+          hostname: "websocket.bimats.com"
           # Annotations for the API Manager Gateway (WebSocket) service Ingress
           annotations:
             kubernetes.io/ingress.class: "nginx"
@@ -139,7 +139,7 @@ wso2:
           # Name of the IngressClass to use
           className: ""
           # Hostname for Gateway profile
-          hostname: "gateway.am.wso2.com"
+          hostname: "api.bimats.com"
           # Annotations for the API Manager Gateway service Ingress
           annotations:
             kubernetes.io/ingress.class: "nginx"
@@ -173,11 +173,11 @@ wso2:
           apim:
             username: wso2carbon
             password: wso2carbon
-            url: jdbc:mysql://wso2am-mysql-db-service:3306/WSO2AM_DB?useSSL=false&amp;autoReconnect=true&amp;requireSSL=false&amp;verifyServerCertificate=false
+            url: jdbc:mysql://wso2-mysql-cluster.mysql:3306/WSO2AM_DB?useSSL=false&amp;autoReconnect=true&amp;requireSSL=false&amp;verifyServerCertificate=false
           apim_shared:
             username: wso2carbon
             password: wso2carbon
-            url: jdbc:mysql://wso2am-mysql-db-service:3306/WSO2AM_SHARED_DB?useSSL=false&amp;autoReconnect=true&amp;requireSSL=false&amp;verifyServerCertificate=false
+            url: jdbc:mysql://wso2-mysql-cluster.mysql:3306/WSO2AM_SHARED_DB?useSSL=false&amp;autoReconnect=true&amp;requireSSL=false&amp;verifyServerCertificate=false
         # Kubernetes Probes
         # Startup probe executed prior to Liveness Probe taking over
         startupProbe:
@@ -204,7 +204,7 @@ wso2:
           # Name of the IngressClass to use
           className: ""
           # Hostname for Control Plane profile
-          hostname: "am.wso2.com"
+          hostname: "am.bimats.com"
           # Annotations for the API Manager Control Plane service Ingress
           annotations:
             kubernetes.io/ingress.class: "nginx"
@@ -240,9 +240,9 @@ wso2:
 
     mi:
       # If a custom image must be used, uncomment 'dockerRegistry' and provide its value.
-      dockerRegistry: "docker.wso2.com"
+      dockerRegistry: "wso2"
       imageName: "wso2mi"
-      imageTag: "4.2.0.0"
+      imageTag: "4.3.0"
       # Number of deployment replicas
       replicas: 2
       strategy:

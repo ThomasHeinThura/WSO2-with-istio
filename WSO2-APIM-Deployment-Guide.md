@@ -24,6 +24,13 @@ kubectl create namespace wso2-system
 kubectl label namespace wso2-system istio-injection=enabled
 ```
 
+#### Install metallb
+```bash
+kubectl apply -f https://raw.githubusercontent.com/metallb/metallb/v0.15.2/config/manifests/metallb-native.yaml
+
+
+```
+
 ### 3. Deploy MySQL Operator
 ```bash
 kubectl apply -f https://raw.githubusercontent.com/mysql/mysql-operator/9.4.0-2.2.5/deploy/deploy-crds.yaml
