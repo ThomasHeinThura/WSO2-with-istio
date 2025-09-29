@@ -61,7 +61,7 @@ wso2:
       imageName: "wso2am"
       imageTag: "4.3.0"
       # Refer to the Kubernetes documentation on updating images (https://kubernetes.io/docs/concepts/containers/images/#updating-images)
-      imagePullPolicy: Always
+      imagePullPolicy: IfNotPresent
 
       resources:
         # These are the resource recommendations for running WSO2 API Management product profiles with profile optimization
@@ -173,11 +173,11 @@ wso2:
           apim:
             username: wso2carbon
             password: wso2carbon
-            url: jdbc:mysql://wso2-mysql-cluster.mysql.svc.cluster.local:3306/WSO2AM_DB?useSSL=false&amp;autoReconnect=true&amp;requireSSL=false&amp;verifyServerCertificate=false
+            url: jdbc:mysql://wso2-mysql-cluster.mysql.svc.cluster.local:3306/WSO2AM_DB?autoReconnect=true&amp;allowPublicKeyRetrieval=true&amp;useSSL=false
           apim_shared:
             username: wso2carbon
             password: wso2carbon
-            url: jdbc:mysql://wso2-mysql-cluster.mysql.svc.cluster.local:3306/WSO2AM_SHARED_DB?useSSL=false&amp;autoReconnect=true&amp;requireSSL=false&amp;verifyServerCertificate=false
+            url: jdbc:mysql://wso2-mysql-cluster.mysql.svc.cluster.local:3306/WSO2AM_SHARED_DB?autoReconnect=true&amp;allowPublicKeyRetrieval=true&amp;useSSL=false
         # Kubernetes Probes
         # Startup probe executed prior to Liveness Probe taking over
         startupProbe:
@@ -241,9 +241,3 @@ wso2:
 kubernetes:
   # Name of Kubernetes service account
   serviceAccount: "wso2am-pattern-3-svc-account"
-
-# Override sub chart parameters
-mysql-am:
-  mysql:
-    persistence:
-      storageClass: *storage_class
