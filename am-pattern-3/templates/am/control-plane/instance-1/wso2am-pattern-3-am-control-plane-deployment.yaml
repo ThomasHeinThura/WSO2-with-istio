@@ -38,15 +38,12 @@ spec:
         - name: init-db
           image: busybox:1.32
           command: ['sh', '-c', 'echo -e "Checking for the availability of DB Server deployment"; while ! nc -z "{{ .Values.wso2.deployment.am.cp.db.hostname }}" {{ .Values.wso2.deployment.am.cp.db.port }}; do sleep 1; printf "-"; done; echo -e "  >> DB Server has started";']
-        - name: init-db-connector-download
-          image: busybox:1.32
+        - name: download-mysql-connector
+          image: curlimages/curl:8.7.1
           command:
-            - /bin/sh
-            - "-c"
-            - |
-              set -e
-              connector_version=8.0.17
-              wget "{{ .Values.wso2.deployment.am.cp.db.driver_url }}" -P /db-connector-jar/ 
+            - sh
+            - -c
+            - curl -L "https://repo1.maven.org/maven2/mysql/mysql-connector-java/8.0.30/mysql-connector-java-8.0.30.jar" -o /db-connector-jar/mysql-connector-java.jar
           volumeMounts:
             - name: db-connector-jar
               mountPath: /db-connector-jar
