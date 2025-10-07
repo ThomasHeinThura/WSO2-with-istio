@@ -1,29 +1,98 @@
-# istio-gateway.yaml
-apiVersion: networking.istio.io/v1beta1
+apiVersion: networking.istio.io/v1
 kind: Gateway
 metadata:
-  name: wso2-apim-gateway
+  name: wso2-gateway
   namespace: wso2-system
 spec:
   selector:
-    istio: ingressgateway
+    istio: ingressgateway # Use Istio's default ingress gateway
   servers:
     - port:
-        number: 80
-        name: http
-        protocol: HTTP
-      hosts:
-        - "api.wso2.local"
-        - "publisher.wso2.local"
-        - "devportal.wso2.local"
-    - port:
         number: 443
-        name: https
+        name: https-am
         protocol: HTTPS
+      hosts:
+        - am.bimats.com
       tls:
         mode: SIMPLE
-        credentialName: wso2-apim-tls-secret
+        credentialName: wso2-tls-secret
+    - port:
+        number: 443
+        name: https-api
+        protocol: HTTPS
       hosts:
-        - "api.wso2.local"
-        - "publisher.wso2.local"
-        - "devportal.wso2.local"
+        - api.bimats.com
+      tls:
+        mode: SIMPLE
+        credentialName: wso2-tls-secret
+---
+apiVersion: networking.istio.io/v1
+kind: VirtualService
+metadata:
+  name: wso2am-cp-virtualservice
+  namespace: wso2-system
+spec:
+  hosts:
+    - am.bimats.com
+  gateways:
+    - wso2-gateway
+  http:
+    - match:
+        - uri:
+            prefix: /
+      route:
+        - destination:
+            host: wso2am-pattern-3-am-cp-service
+            port:
+              number: 9443
+---
+apiVersion: networking.istio.io/v1
+kind: VirtualService
+metadata:
+  name: wso2am-gateway-virtualservice
+  namespace: wso2-system
+spec:
+  hosts:
+    - api.bimats.com
+  gateways:
+    - wso2-gateway
+  http:
+    - match:
+        - uri:
+            prefix: /
+      route:
+        - destination:
+            host: wso2am-pattern-3-am-gateway-service
+            port:
+              number: 8243
+---
+apiVersion: networking.istio.io/v1
+kind: DestinationRule
+metadata:
+  name: wso2am-cp-destination
+  namespace: wso2-system
+spec:
+  host: wso2am-pattern-3-am-cp-service
+  trafficPolicy:
+    loadBalancer:
+      consistentHash:
+        httpCookie:
+          name: route
+          path: /
+          ttl: 0s
+    tls:
+      mode: SIMPLE
+      insecureSkipVerify: true
+---
+apiVersion: networking.istio.io/v1
+kind: DestinationRule
+metadata:
+  name: wso2am-gateway-destination
+  namespace: wso2-system
+spec:
+  host: wso2am-pattern-3-am-gateway-service
+  trafficPolicy:
+    tls:
+      mode: SIMPLE
+      insecureSkipVerify: true # Skip certificate verification
+
