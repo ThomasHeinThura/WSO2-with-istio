@@ -165,7 +165,7 @@ wso2:
       # API Manager's Control Plane specific configurations
       cp:
         db:
-          hostname: wso2-mysql-cluster.mysql.svc.cluster.local
+          hostname: 192.168.138.10
           port: 3306
           type: mysql
           driver: com.mysql.cj.jdbc.Driver
@@ -173,11 +173,11 @@ wso2:
           apim:
             username: wso2carbon
             password: wso2carbon
-            url: jdbc:mysql://wso2-mysql-cluster.mysql.svc.cluster.local:3306/WSO2AM_DB?autoReconnect=true&amp;allowPublicKeyRetrieval=true&amp;useSSL=false
+            url: jdbc:mysql://192.168.138.10:3306/WSO2AM_DB?autoReconnect=true&amp;allowPublicKeyRetrieval=true&amp;useSSL=false
           apim_shared:
             username: wso2carbon
             password: wso2carbon
-            url: jdbc:mysql://wso2-mysql-cluster.mysql.svc.cluster.local:3306/WSO2AM_SHARED_DB?autoReconnect=true&amp;allowPublicKeyRetrieval=true&amp;useSSL=false
+            url: jdbc:mysql://192.168.138.10:3306/WSO2AM_SHARED_DB?autoReconnect=true&amp;allowPublicKeyRetrieval=true&amp;useSSL=false
         # Kubernetes Probes
         # Startup probe executed prior to Liveness Probe taking over
         startupProbe:

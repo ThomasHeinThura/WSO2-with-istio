@@ -30,6 +30,7 @@ spec:
   tls:
   - hosts:
     - {{ .Values.wso2.deployment.am.gateway.ingress.hostname }}
+    secretName: wso2-tls-secret
   rules:
   - host: {{ .Values.wso2.deployment.am.gateway.ingress.hostname }}
     http:
